@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header">
+    <div class="container">
+        <nav>
+            <ul id="sidemenu">
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <i class="fas fa-times" onclick="closemenu()"></i>
+            </ul>
+            <i class="fas fa-bars" onclick="openmenu()"></i>
+        </nav>
+        <div class="header-text">
+            <p>Full Stack Developer</p>
+            <h1>Hi, I'm <span>Marquette</span> Beasley</h1>
+        </div>
+    </div>
+</div>
+<!------------------------about-------------------->
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+            </div>
+            <div class ="about-col-2">
+                <h1 class="sub-title">About Me</h1>
+                <p>Seasoned computer programmer with abilities in designing, developing, documenting, testing, and debugging software. 
+                    Able to set up contracts, forecast trends and work with suppliers to maximize product quality. Good communication, multitasking, and conflict resolution skills. 
+                    Versatile advertising account manager able to work with different types of business to grow customer bases and revenue with high-quality advertising. 
+                    Strong negotiation, planning and organizational skills. Ready to apply years of experience to a challenging new role.</p>
+                </div>
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                        <p class="tab-links" onclick="opentab('education')">Education</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="skills">
+                        <ul>
+                            <li><span>UI/UX</span><br>Designing Web/App Interfaces</li>
+                            <li><span>Web Developer</span><br>Web app Development</li>
+                            <li><span>App Development</span><br>Building Android/iOS apps</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>2022 - Current</span><br>Fullstack Developer at ActivateWork</li>
+                            <li><span>2022 - Current</span><br>Computer Programming at Colorado School of Mines</li>
+                                </ul>
+                    </div>
+                    <div class="tab-contents" id="education">
+                        <ul>
+                            <li><span>2021 - Current</span><br>Computer Programming at Colorado School of Mines</li>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>  
+</div>
+<!----------contact-------------->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title1">Contact Me</h1>
+                <p><i class="fas fa-paper-plane"></i> marquettebeasley@yahoo.com</p>
+                <p><i class="fas fa-phone-alt"></i> 2405657926</p>
+                <a href="personal-portfolio/resume 3.0.pdf" download class="btn btn2">Download CV</a>
+            </div>
+        
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                    <input type="name" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="Message" placeholder="Your Message" rows="6"></textarea>
+                    <button type="submit" class="btn btn2" >Submit</button>
+                </form>
+                <span id= "msg"></span>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>Copyright © Marquette Beasley</p>
+    </div>
+</div>
+
+
+
+<script>
+
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    function opentab(tabname){
+        for(tablink of tablinks){
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents){
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab")
+    }
+
+</script>
+
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbznORcr1JFCZXI4ohNkiV5gFioUPPajEUy4XrDm7ajAjDpzHAAjeLVnmmnbMyVKHYVr/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            msg.innerHTMl = "Message sent successfully"
+            serTimeout(function(){
+                msg.innerHtml = ""
+            },5000)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+
+</body>
+</html>
